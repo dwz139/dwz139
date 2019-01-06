@@ -184,6 +184,7 @@
                     blocks.push(b)            
                 }
 
+                var paused = false
                 game.registerAction('ArrowLeft',function(){
                     paddle.moveLeft()
                 })
@@ -196,7 +197,16 @@
                     ball.fire()
                 })
 
+                window.addEventListener('keydown',function(events){
+                    if (event.key == 'p'){
+                        paused = !paused
+                    }
+                })
+
                 game.update = function(){
+                    if (paused){
+                        return
+                    }
                     ball.move()
                     //判断相撞
                     if(paddle.collide(ball)){
